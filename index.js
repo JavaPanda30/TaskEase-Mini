@@ -25,8 +25,10 @@ function addnewTask(event) {
     tasknew.classList.add("draggable-card");
     tasknew.setAttribute("draggable", "true");
     tasknew.setAttribute("ondragstart", "drag(event)");
-    const deletebtn = `<div id="part2"><a href="#" onClick="deletetask(event)" class="${len}"><h5 class="${len}">Delete</h5><div id="deleteclr"></div></a></div>`;
-    tasknew.innerHTML = task + deletebtn;
+    const deletebtn = `<div id="part2" class="lft"><a href="#" onClick="deletetask(event)" class="${len}"><h5 class="${len}">Delete</h5><div id="deleteclr"></div></a></div>`;
+    const donebtn = `<div id="part2" class="lft"><a href="#" onClick="deletetask(event)" class="${len}"><h5 class="${len}">Done</h5><div id="swipeclr"></div></a></div>`;
+    tasknew.innerHTML =
+      task + `<span style="display:flex">${deletebtn + donebtn}</span>`;
     const column1 = document.getElementById("column1");
     column1.appendChild(tasknew);
   }
@@ -34,13 +36,16 @@ function addnewTask(event) {
 
 function deletetask(event) {
   event.preventDefault();
-  var deleteId = event.target.classList;
-  console.log(deleteId[0]);
-  const tasks = document.querySelectorAll(".draggable-card");
-  console.log(tasks);
-  tasks.forEach((e) => {
-    if (e.id === deleteId[0]) {
-      e.remove();
-    }
-  });
+  const chk = confirm("Are You sure ?");
+  if (chk) {
+    var deleteId = event.target.classList;
+    console.log(deleteId[0]);
+    const tasks = document.querySelectorAll(".draggable-card");
+    console.log(tasks);
+    tasks.forEach((e) => {
+      if (e.id === deleteId[0]) {
+        e.remove();
+      }
+    });
+  }
 }
